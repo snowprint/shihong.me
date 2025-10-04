@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-theme="auto">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Shihong Chen — About</title>
   <meta name="description" content="About — Shihong Chen" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥷</text></svg>" />
   <style>
     /* --------------------------------------------------
        Geek / CLI-inspired layout with theme toggle
@@ -28,15 +28,7 @@
       --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       --maxw: 1152px;
     }
-    @media (prefers-color-scheme: dark){
-      :root{
-        /* Homebrew-ish dark: near-black bg, cool gray text, green accents */
-        --bg:#0b0c0f; --fg:#e6e7eb; --muted:#98a2b3; --card:#0f1115; --border:#1f232b;
-        --accent:#ffffff; --link:#a3e635; /* lime */ --code:#e6e7eb;
-        --green:#25d366; /* terminal-y green */
-        --green-dim:#1db954; /* softer green */
-      }
-    }
+
     /* Explicit theme overrides (take precedence over media query) */
     [data-theme="dark"]{
       --bg:#0b0c0f; --fg:#e6e7eb; --muted:#98a2b3; --card:#0f1115; --border:#1f232b;
@@ -121,7 +113,7 @@
 </head>
 <body>
   <div class="topbar">
-    <button class="toggle" id="themeToggle" title="Toggle theme (t)">theme: <span id="themeLabel">auto</span> &nbsp;<kbd>t</kbd></button>
+    <button class="toggle" id="themeToggle" title="Toggle theme (t)">theme: <span id="themeLabel">dark</span> &nbsp;<kbd>t</kbd></button>
   </div>
 
   <div class="wrap">
@@ -135,7 +127,7 @@
 
       <div class="term">
         <div class="term-head"><span class="dot d-red"></span><span class="dot d-amber"></span><span class="dot d-green"></span></div>
-        <div class="prompt"><span class="cmd">@ahout</span>:<span class="cmd">~</span>$ <b>cat README.md</b></div>
+        <div class="prompt"><span class="cmd">@about</span>:<span class="cmd">~</span>$ <b>cat README.md</b></div>
       </div>
 
       <div class="links">
@@ -237,24 +229,17 @@
 
   <footer class="foot">
     <span>© <span id="y"></span> Shihong Chen</span>
-    <span>Theme: <code class="code" id="themeState">auto</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
+    <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
 
   <script>
-    // Theme logic: auto (respect system), light, dark
+    // Theme logic: dark/light only
     const root = document.documentElement;
     const label = document.getElementById('themeLabel');
     const state = document.getElementById('themeState');
     const btn = document.getElementById('themeToggle');
 
     function setTheme(mode){
-      if(mode === 'auto'){
-        root.setAttribute('data-theme','auto');
-        label.textContent = 'auto';
-        state.textContent = 'auto';
-        localStorage.removeItem('theme');
-        return;
-      }
       root.setAttribute('data-theme', mode);
       label.textContent = mode;
       state.textContent = mode;
@@ -263,13 +248,12 @@
 
     function applyStored(){
       const saved = localStorage.getItem('theme');
-      if(saved === 'light' || saved === 'dark') setTheme(saved); else setTheme('auto');
+      setTheme(saved === 'light' ? 'light' : 'dark');
     }
 
     btn.addEventListener('click', ()=>{
       const current = root.getAttribute('data-theme');
-      const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
-      setTheme(next);
+      setTheme(current === 'dark' ? 'light' : 'dark');
     });
 
     // Panes (hero + sections) with j/k navigation
