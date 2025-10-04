@@ -49,16 +49,16 @@
 
     html,body{height:100%;}
     body{margin:0; background:var(--bg); color:var(--fg);
-      font: 15.5px/1.7 var(--sans);
-      letter-spacing:.2px;
+      font: 14px/1.7 var(--mono);
+      letter-spacing:.3px;
       color-scheme: light;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
     [data-theme="dark"] body{ color-scheme: dark; }
     [data-theme="light"] body{ color-scheme: light; }
 
-    /* Geekier overall typography: prefer monospace for headings & nav */
-    h1,h2,nav,aside .name, .toggle, .badge, .prompt, .hero-body{ font-family: var(--mono); }
+    /* Full monospace for geek aesthetic */
+    *{ font-family: var(--mono); }
 
     a{ color:var(--link); text-decoration:none; }
     a:hover{ text-decoration:underline; }
@@ -80,7 +80,7 @@
     .prompt{ font: 13px/1.6 var(--mono); padding:10px 12px; white-space:nowrap; overflow:auto; }
     .prompt b{ color:var(--link); }
 
-    .name{ font: 22px/1.2 var(--mono); margin:0; letter-spacing:.3px; }
+    .name{ font-size: 20px; line-height: 1.2; margin:0; letter-spacing:.3px; font-weight: 700; }
     .sub{ color:var(--muted); font-size: 12.5px; margin-top:4px; }
 
     .toc h3, .now h3, .links h3{ font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--muted); }
@@ -95,7 +95,7 @@
     .main{ display:flex; flex-direction:column; gap:22px; }
     .navpane{ border:1px solid var(--border); border-radius:14px; padding:18px 18px; background:transparent; scroll-margin-top: 14px; }
     section{ /* section remains for semantics */ }
-    h1{ font: 28px/1.25 var(--mono); margin:0 0 6px; }
+    h1{ font-size: 26px; line-height: 1.25; margin:0 0 6px; font-weight: 700; }
     h2{ font: 13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; }
     p{ margin:8px 0; }
     ul{ margin: 8px 0 0 20px; }
@@ -227,7 +227,6 @@
       <section class="navpane" id="life">
         <h2>Life & Personality</h2>
         <ul>
-          <li>Lives with two cats</li>
           <li>Enjoys reading, traveling, and practicing simplicity</li>
           <li>Values rhythm, restraint, and quiet focus</li>
           <li>Self‑description: <strong>“A humanist with an engineer’s mind.”</strong></li>

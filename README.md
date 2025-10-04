@@ -1,25 +1,60 @@
-# shihong.me
+# 🥷 shihong.me
 
-Personal website with CLI-inspired design.
+Personal website with CLI-inspired design and geek aesthetic.
 
-## Features
+**Live:** [shihong.me](https://shihong.me)
 
-- 🎨 Geek/CLI aesthetic with terminal-style elements
-- 🌓 Theme toggle (auto/light/dark)
-- ⌨️ Keyboard navigation (j/k for sections, t for theme)
-- 📱 Responsive design
-- ⚡ Pure HTML/CSS/JS - no dependencies
+## ✨ Features
 
-## Keyboard Shortcuts
+- 🖥️ **CLI/Terminal aesthetic** - Monospace fonts, terminal-style UI elements
+- 🌓 **Dark/Light theme** - Toggle between dark and light modes (default: dark)
+- ⌨️ **Keyboard navigation** - Navigate sections with `j`/`k`, toggle theme with `t`
+- 📱 **Fully responsive** - Works seamlessly on desktop and mobile
+- ⚡ **Zero dependencies** - Pure HTML/CSS/JS, no build tools required
+- 🎯 **Smooth interactions** - Active section highlighting, smooth scrolling
 
-- `j` - Next section
-- `k` - Previous section  
-- `t` - Toggle theme
+## ⌨️ Keyboard Shortcuts
 
-## Development
+| Key | Action |
+|-----|--------|
+| `j` | Next section |
+| `k` | Previous section |
+| `t` | Toggle dark/light theme |
 
-Simply open `index.html` in a browser.
+## 🚀 Quick Start
 
-## License
+```bash
+# Clone the repository
+git clone https://github.com/snowprint/shihong.me.git
 
-© 2025 Shihong Chen
+# Open in browser
+open index.html
+```
+
+No build process needed - just open `index.html` in your browser!
+
+## 🎨 Design Philosophy
+
+- **Minimalist** - Clean, distraction-free interface
+- **Geek-friendly** - Terminal-inspired design with monospace fonts
+- **Accessible** - Semantic HTML, keyboard navigation, proper ARIA labels
+- **Fast** - Single HTML file, no external dependencies
+
+## 📁 Project Structure
+
+```
+shihong.me/
+├── index.html      # Main page (includes CSS & JS)
+├── README.md       # This file
+└── .gitignore      # Git ignore rules
+```
+
+## 🛠️ Tech Stack
+
+- **HTML5** - Semantic markup
+- **CSS3** - Custom properties, Grid, Flexbox
+- **Vanilla JavaScript** - No frameworks
+
+## 📄 License
+
+© 2025 Shihong Chen. All rights reserved.
