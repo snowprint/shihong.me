@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shihong Chen — About</title>
+  <meta name="description" content="About — Shihong Chen" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    /* --------------------------------------------------
+       Geek / CLI-inspired layout with theme toggle
+       Light, and Homebrew-like Dark palettes
+       j/k navigation across right-hand panes (incl. hero)
+       -------------------------------------------------- */
+    :root{
+      /* Light */
+      --bg: #ffffff;
+      --fg: #0c0d0e;
+      --muted:#6b7280;
+      --card:#f6f7f9;
+      --border:#e5e7eb;
+      --accent:#111827;
+      --link:#2563eb; /* blue-600 */
+      --code:#0b0b0c;
+      --green:#16794d;       /* subtle green for light mode */
+      --green-dim:#236e57;   
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --maxw: 1152px;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        /* Homebrew-ish dark: near-black bg, cool gray text, green accents */
+        --bg:#0b0c0f; --fg:#e6e7eb; --muted:#98a2b3; --card:#0f1115; --border:#1f232b;
+        --accent:#ffffff; --link:#a3e635; /* lime */ --code:#e6e7eb;
+        --green:#25d366; /* terminal-y green */
+        --green-dim:#1db954; /* softer green */
+      }
+    }
+    /* Explicit theme overrides (take precedence over media query) */
+    [data-theme="dark"]{
+      --bg:#0b0c0f; --fg:#e6e7eb; --muted:#98a2b3; --card:#0f1115; --border:#1f232b;
+      --accent:#ffffff; --link:#a3e635; --code:#e6e7eb; --green:#25d366; --green-dim:#1db954;
+    }
+    [data-theme="light"]{
+      --bg: #ffffff; --fg:#0c0d0e; --muted:#6b7280; --card:#f6f7f9; --border:#e5e7eb;
+      --accent:#111827; --link:#2563eb; --code:#0b0b0c; --green:#16794d; --green-dim:#236e57;
+    }
+
+    html,body{height:100%;}
+    body{margin:0; background:var(--bg); color:var(--fg);
+      font: 15.5px/1.7 var(--sans);
+      letter-spacing:.2px;
+      color-scheme: light;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    [data-theme="dark"] body{ color-scheme: dark; }
+    [data-theme="light"] body{ color-scheme: light; }
+
+    /* Geekier overall typography: prefer monospace for headings & nav */
+    h1,h2,nav,aside .name, .toggle, .badge, .prompt, .hero-body{ font-family: var(--mono); }
+
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 24px; display:grid; grid-template-columns: 300px 1fr; gap: 28px; }
+    @media (max-width: 980px){ .wrap{ grid-template-columns: 1fr; } }
+
+    /* Header / Theme toggle */
+    .topbar{ max-width: var(--maxw); margin: 0 auto; display:flex; align-items:center; justify-content:flex-end; padding:12px 24px 0; }
+    .toggle{ font: 12px var(--mono); border:1px solid var(--border); background:var(--card); color:var(--fg); padding:8px 10px; border-radius:10px; cursor:pointer; }
+    .toggle kbd{ font: 11px var(--mono); opacity:.7; }
+
+    /* Sidebar */
+    .side{ position:sticky; top:16px; align-self:start; border:1px solid var(--border); border-radius:14px; padding:18px; background:var(--card); display:flex; flex-direction:column; gap:16px; }
+    .term{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:transparent; }
+    .term-head{ display:flex; gap:6px; align-items:center; padding:8px 10px; border-bottom:1px solid var(--border); }
+    .dot{ width:10px; height:10px; border-radius:50%; }
+    .d-red{ background:#ff5f56; } .d-amber{ background:#ffbd2e; } .d-green{ background:#27c93f; }
+    .prompt{ font: 13px/1.6 var(--mono); padding:10px 12px; white-space:nowrap; overflow:auto; }
+    .prompt b{ color:var(--link); }
+
+    .name{ font: 22px/1.2 var(--mono); margin:0; letter-spacing:.3px; }
+    .sub{ color:var(--muted); font-size: 12.5px; margin-top:4px; }
+
+    .toc h3, .now h3, .links h3{ font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--muted); }
+    .toc a{ display:block; padding:6px 0; font-size:13.5px; border-bottom:1px dashed var(--border); }
+    .toc a:last-child{ border-bottom:none; }
+    .toc a.active{ color:var(--green); text-decoration:none; }
+
+    .links a{ display:flex; align-items:center; gap:8px; padding:8px 0; font: 13.5px var(--mono); }
+    .badge{ display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); padding:6px 8px; border-radius:10px; font:12px var(--mono); color:var(--muted); }
+
+    /* Main */
+    .main{ display:flex; flex-direction:column; gap:22px; }
+    .navpane{ border:1px solid var(--border); border-radius:14px; padding:18px 18px; background:transparent; scroll-margin-top: 14px; }
+    section{ /* section remains for semantics */ }
+    h1{ font: 28px/1.25 var(--mono); margin:0 0 6px; }
+    h2{ font: 13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; }
+    p{ margin:8px 0; }
+    ul{ margin: 8px 0 0 20px; }
+    li{ margin:6px 0; }
+
+    /* Dark-mode: main area gets green accents */
+    [data-theme="dark"] .main h2{ color: var(--green); }
+    [data-theme="dark"] .main a{ color: var(--green); }
+    [data-theme="dark"] .main strong{ color: var(--green-dim); font-weight: 700; }
+
+    .hero-cli{ overflow:hidden; }
+    .hero-head{ display:flex; gap:6px; align-items:center; padding:10px; border-bottom:1px solid var(--border); }
+    .hero-body{ font:13.5px var(--mono); padding:12px; }
+    .cmd{ color:var(--muted); }
+    .code{ color:var(--code); }
+
+    /* Active pane highlight */
+    .navpane{ transition: box-shadow 0.2s ease, border-color 0.2s ease; }
+    .active-section{ box-shadow: 0 0 0 2px var(--green) inset; border-color: var(--green); }
+
+    .foot{ max-width: var(--maxw); margin: 8px auto 28px; padding:0 24px; color:var(--muted); font-size:12px; display:flex; justify-content:space-between; align-items:center; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <button class="toggle" id="themeToggle" title="Toggle theme (t)">theme: <span id="themeLabel">auto</span> &nbsp;<kbd>t</kbd></button>
+  </div>
+
+  <div class="wrap">
+    <!-- Sidebar with terminal badge, quick links, and TOC -->
+    <aside class="side" aria-label="Sidebar">
+      <div>
+        <h2 style="margin-bottom:6px">About</h2>
+        <div class="name">Shihong Chen</div>
+        <div class="sub">Digital & AI Transformation</div>
+      </div>
+
+      <div class="term">
+        <div class="term-head"><span class="dot d-red"></span><span class="dot d-amber"></span><span class="dot d-green"></span></div>
+        <div class="prompt"><span class="cmd">@ahout</span>:<span class="cmd">~</span>$ <b>cat README.md</b></div>
+      </div>
+
+      <div class="links">
+        <h3>Links</h3>
+        <a href="https://shihong.me" target="_blank" rel="noopener">shihong.me ↗</a>
+        <a href="https://www.linkedin.com/in/shihongchen/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <div class="badge">j/k — prev/next pane</div>
+        <div class="badge">⌘K — command palette (soon)</div>
+      </div>
+
+      <div class="now">
+        <h3>Now</h3>
+        <div class="badge">exploring AI‑native engineering</div>
+        <div class="badge">humans · information · AI</div>
+      </div>
+
+      <nav class="toc" aria-label="On this page" id="toc">
+        <h3>Contents</h3>
+        <a href="#profile">Profile</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#focus">Current Focus</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects & Interests</a>
+        <a href="#technical">Technical Orientation</a>
+        <a href="#life">Life & Personality</a>
+      </nav>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="hero-cli navpane" id="hero" role="region" aria-label="CLI banner">
+        <div class="hero-head"><span class="dot d-red"></span><span class="dot d-amber"></span><span class="dot d-green"></span></div>
+        <div class="hero-body">
+          <div><span class="cmd">$</span> echo "Great systems are understood into existence."</div>
+          <div><span class="cmd">$</span> open <a href="https://shihong.me" target="_blank" rel="noopener">shihong.me</a></div>
+        </div>
+      </div>
+
+      <section class="navpane" id="profile">
+        <h2>Professional Profile</h2>
+        <p>I work in the information technology and digital transformation field for a global restaurant enterprise, focusing on how technology can genuinely improve <strong>operational efficiency and organizational capability</strong>.</p>
+        <p>In recent years, I’ve led teams navigating the complexity of the China market, exploring the practical implementation of <strong>modern architecture, intelligent operations, and data‑driven decisions</strong>. More than system building itself, my goal is to make the technology team an integral part of business innovation.</p>
+      </section>
+
+      <section class="navpane" id="philosophy">
+        <h2>Professional Philosophy</h2>
+        <p>I believe that <strong>great systems are not managed into existence — they are understood into existence</strong>. The true value of technology lies not in its complexity, but in how it helps an organization operate with greater clarity and rhythm.</p>
+        <p>For me, digital transformation is not merely about building systems — it is a <strong>change in how an organization thinks and learns</strong>. It’s about understanding, collaboration, and growth — making change itself a core capability.</p>
+      </section>
+
+      <section class="navpane" id="focus">
+        <h2>Current Focus</h2>
+        <ul>
+          <li>Transitioning from traditional development to <strong>AI‑Native Engineering</strong></li>
+          <li>Enabling <strong>fusion teams</strong> where humans and AI collaborate naturally</li>
+          <li>Exploring the synergy between <strong>humans, information, and AI</strong> in modern organizations</li>
+          <li>Building lighter, faster technology stacks to support rapid business evolution</li>
+          <li>Encouraging adaptability as a core organizational habit</li>
+        </ul>
+      </section>
+
+      <section class="navpane" id="education">
+        <h2>Education</h2>
+        <ul>
+          <li><strong>PKU × NU Kellogg EMBA</strong></li>
+          <li><strong>Southeast University</strong></li>
+        </ul>
+      </section>
+
+      <section class="navpane" id="projects">
+        <h2>Personal Projects & Interests</h2>
+        <ul>
+          <li><a href="https://shihong.me" target="_blank" rel="noopener"><strong>shihong.me</strong></a> — Personal site and digital notebook (in progress)</li>
+          <li><strong>NerdBox</strong> — A small collection of ongoing experimental tools</li>
+          <li>Long‑term interests in <strong>AI agent collaboration, knowledge architecture, visual design, and narrative thinking</strong></li>
+          <li>Occasionally writes code, and sometimes words</li>
+        </ul>
+      </section>
+
+      <section class="navpane" id="technical">
+        <h2>Technical Orientation</h2>
+        <ul>
+          <li>Experienced with cloud‑native environments and automation workflows</li>
+          <li>Enjoys designing at the boundaries where systems meet people</li>
+          <li>Runs personal servers as a playground for experimentation</li>
+          <li>Believes that <strong>understanding systems also helps us understand life</strong></li>
+        </ul>
+      </section>
+
+      <section class="navpane" id="life">
+        <h2>Life & Personality</h2>
+        <ul>
+          <li>Lives with two cats</li>
+          <li>Enjoys reading, traveling, and practicing simplicity</li>
+          <li>Values rhythm, restraint, and quiet focus</li>
+          <li>Self‑description: <strong>“A humanist with an engineer’s mind.”</strong></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <span>© <span id="y"></span> Shihong Chen</span>
+    <span>Theme: <code class="code" id="themeState">auto</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
+  </footer>
+
+  <script>
+    // Theme logic: auto (respect system), light, dark
+    const root = document.documentElement;
+    const label = document.getElementById('themeLabel');
+    const state = document.getElementById('themeState');
+    const btn = document.getElementById('themeToggle');
+
+    function setTheme(mode){
+      if(mode === 'auto'){
+        root.setAttribute('data-theme','auto');
+        label.textContent = 'auto';
+        state.textContent = 'auto';
+        localStorage.removeItem('theme');
+        return;
+      }
+      root.setAttribute('data-theme', mode);
+      label.textContent = mode;
+      state.textContent = mode;
+      localStorage.setItem('theme', mode);
+    }
+
+    function applyStored(){
+      const saved = localStorage.getItem('theme');
+      if(saved === 'light' || saved === 'dark') setTheme(saved); else setTheme('auto');
+    }
+
+    btn.addEventListener('click', ()=>{
+      const current = root.getAttribute('data-theme');
+      const next = current === 'auto' ? 'light' : current === 'light' ? 'dark' : 'auto';
+      setTheme(next);
+    });
+
+    // Panes (hero + sections) with j/k navigation
+    const panes = Array.from(document.querySelectorAll('.main .navpane'));
+    const toc = document.getElementById('toc');
+    const tocLinks = Array.from(toc.querySelectorAll('a'));
+
+    function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+    let currentIndex = 0;
+
+    function setActive(i){
+      panes.forEach((el,idx)=> el.classList.toggle('active-section', idx===i));
+      // sync TOC (hero is not in TOC)
+      tocLinks.forEach(a=> a.classList.remove('active'));
+      const activePane = panes[i];
+      if(activePane && activePane.id){
+        const link = toc.querySelector(`a[href="#${activePane.id}"]`);
+        if(link) link.classList.add('active');
+      }
+      currentIndex = i;
+    }
+
+    function scrollToIndex(i){
+      i = clamp(i, 0, panes.length-1);
+      panes[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActive(i);
+    }
+
+    // determine current pane by nearest top
+    function detectCurrent(){
+      const top = window.scrollY + 90; // offset to account for spacing
+      let best = 0; let bestDelta = Infinity;
+      panes.forEach((el, i)=>{
+        const rect = el.getBoundingClientRect();
+        const y = rect.top + window.scrollY;
+        const d = Math.abs(y - top);
+        if(d < bestDelta){ best = i; bestDelta = d; }
+      });
+      setActive(best);
+    }
+
+    window.addEventListener('scroll', ()=>{ detectCurrent(); }, { passive:true });
+    window.addEventListener('load', ()=>{ setActive(0); }); // start with hero selected
+
+    // Keyboard: j (next), k (prev)
+    document.addEventListener('keydown', (e)=>{
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) return;
+      const key = e.key.toLowerCase();
+      if(key === 't' && !e.metaKey && !e.ctrlKey){ btn?.click(); return; }
+      if((key === 'j' || key === 'k') && !e.metaKey && !e.ctrlKey){
+        e.preventDefault();
+        const dir = key === 'j' ? 1 : -1;
+        const next = clamp(currentIndex + dir, 0, panes.length-1);
+        if(next !== currentIndex){ scrollToIndex(next); }
+      }
+    });
+
+    // TOC click -> sync active to target pane index
+    tocLinks.forEach((a)=>{
+      a.addEventListener('click', (ev)=>{
+        const id = a.getAttribute('href').slice(1);
+        const idx = panes.findIndex(el=> el.id === id);
+        if(idx >= 0){ setActive(idx); }
+      });
+    });
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+    applyStored();
+  </script>
+</body>
+</html>
