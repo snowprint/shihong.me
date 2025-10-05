@@ -57,4 +57,4 @@ shihong.me/
 
 ## 📄 License
 
-© 2025 Shihong Chen. All rights reserved.
+MIT License
