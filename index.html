@@ -76,7 +76,7 @@
     .name{ font-size: 20px; line-height: 1.2; margin:0; letter-spacing:.3px; font-weight: 700; }
     .sub{ color:var(--muted); font-size: 12.5px; margin-top:4px; }
 
-    .toc h3, .now h3, .links h3{ font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--muted); }
+    .toc h3, .now h3, .links h3{ font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; color:var(--muted); }
     .toc a{ display:block; padding:6px 0; font-size:13.5px; border-bottom:1px dashed var(--border); }
     .toc a:last-child{ border-bottom:none; }
     .toc a.active{ color:var(--green); text-decoration:none; }
@@ -93,8 +93,8 @@
     ul{ margin: 8px 0 0 0; padding-left: 0; list-style: none; }
     li{ margin:6px 0; }
 
-    /* Dark-mode: main area gets green accents */
-    [data-theme="dark"] .main h2{ color: var(--green); }
+    /* Dark-mode: main area gets white h2 */
+    [data-theme="dark"] .main h2{ color: var(--accent); }
     [data-theme="dark"] .main a{ color: var(--green); }
     [data-theme="dark"] .main strong{ color: var(--green-dim); font-weight: 700; }
 
@@ -175,7 +175,7 @@
         <a href="#working">Working Style</a>
         <a href="#focus">Current Focus</a>
         <a href="#education">Education</a>
-        <a href="#projects">Projects & Interests</a>
+        <a href="#interests">Interests</a>
       </nav>
     </aside>
 
@@ -191,9 +191,9 @@
       <div class="navpane" id="profile">
         <section>
           <h2>Profile</h2>
-          <p>👋 I'm Shihong Chen, working at the intersection of technology and human experience.</p>
-          <p>🎯 I focus on digital and AI transformation, trying to build systems that are both technically sound and genuinely useful to people.</p>
-          <p>🌏 Based between China and the US, I've learned to bridge different perspectives—technical and humanistic, Eastern and Western, strategic and hands-on.</p>
+          <p>👋 I'm <strong>Shihong Chen</strong>, working at the intersection of <strong>technology and human experience</strong> for a global restaurant enterprise.</p>
+          <p>🎯 I focus on <strong>digital and AI transformation</strong>, aiming to build systems that are not only <strong>technically sound</strong> but also <strong>genuinely meaningful to people</strong>.</p>
+          <p>🌏 My work spans <strong>China and the Global(U.S.)</strong>, where I practice <strong>bridging different perspectives</strong> — technical and humanistic, Eastern and Western, strategic and hands-on.</p>
         </section>
       </div>
 
@@ -231,16 +231,15 @@
         <section>
           <h2>Education</h2>
           <ul>
-            <li>🎓 <strong>MS in Information Science</strong> — University of North Carolina at Chapel Hill</li>
-            <li>🎓 <strong>BS in Computer Science</strong> — Nanjing University</li>
+            <li>🎓 <strong>EMBA</strong> — PKU x NU Kellogg</li>
+            <li>🎓 <strong>BS in Mechanical Engineering</strong> — Southeast University</li>
           </ul>
         </section>
       </div>
 
-      <div class="navpane" id="projects">
+      <div class="navpane" id="interests">
         <section>
-          <h2>Projects & Interests</h2>
-          <p>💻 <strong>Personal site:</strong> This CLI-inspired website—built with zero dependencies, keyboard navigation, and a geek aesthetic.</p>
+          <h2>Interests</h2>
           <p>📚 <strong>Reading:</strong> Philosophy of technology, system design, information architecture, and the occasional sci-fi novel.</p>
           <p>🛠️ <strong>Tinkering:</strong> DevOps tools, infrastructure as code, automation scripts, and exploring new programming paradigms.</p>
           <p>🌱 <strong>Learning:</strong> Always exploring new technologies and frameworks, but more interested in fundamental principles that last.</p>
