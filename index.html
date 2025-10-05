@@ -87,7 +87,6 @@
     /* Main */
     .main{ display:flex; flex-direction:column; gap:22px; }
     .navpane{ border:1px solid var(--border); border-radius:14px; padding:18px 18px; background:transparent; scroll-margin-top: 14px; }
-    section{ /* section remains for semantics */ }
     h1{ font-size: 26px; line-height: 1.25; margin:0 0 6px; font-weight: 700; }
     h2{ font: 13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; }
     p{ margin:8px 0; }
@@ -156,15 +155,27 @@
         <div class="badge">humans · information · AI</div>
       </div>
 
+      <div class="now">
+        <h3>Tags</h3>
+        <div class="badge">#SystemThinker</div>
+        <div class="badge">#ArchitectMindset</div>
+        <div class="badge">#AI_Native</div>
+        <div class="badge">#GeekAesthetic</div>
+        <div class="badge">#HumanistEngineer</div>
+        <div class="badge">#BridgeBuilder</div>
+        <div class="badge">#ElegantEngineering</div>
+        <div class="badge">#KnowledgeEngineering</div>
+        <div class="badge">#FromChaosToOrder</div>
+      </div>
+
       <nav class="toc" aria-label="On this page" id="toc">
         <h3>Contents</h3>
         <a href="#profile">Profile</a>
-        <a href="#philosophy">Philosophy</a>
+        <a href="#approach">Approach</a>
+        <a href="#working">Working Style</a>
         <a href="#focus">Current Focus</a>
         <a href="#education">Education</a>
         <a href="#projects">Projects & Interests</a>
-        <a href="#technical">Technical Orientation</a>
-        <a href="#life">Life & Personality</a>
       </nav>
     </aside>
 
@@ -172,75 +183,74 @@
       <div class="hero-cli navpane" id="hero" role="region" aria-label="CLI banner">
         <div class="hero-head"><span class="dot d-red"></span><span class="dot d-amber"></span><span class="dot d-green"></span></div>
         <div class="hero-body">
-          <div><span class="cmd">$</span> echo "Great systems are understood into existence."</div>
-          <div><span class="cmd">$</span> open <a href="https://shihong.me" target="_blank" rel="noopener">shihong.me</a></div>
+          <div><span class="cmd">$</span> <span class="code">whoami</span></div>
+          <div class="code">A humanist with an engineer's mind.</div>
         </div>
       </div>
 
-      <section class="navpane" id="profile">
-        <h2>Professional Profile</h2>
-        <p>💼 I work in the information technology and digital transformation field for a global restaurant enterprise, focusing on how technology can genuinely improve <strong>operational efficiency and organizational capability</strong>.</p>
-        <p>🌏 In recent years, I've led teams navigating the complexity of the China market, exploring the practical implementation of <strong>modern architecture, intelligent operations, and data‑driven decisions</strong>. More than system building itself, my goal is to make the technology team an integral part of business innovation.</p>
-      </section>
+      <div class="navpane" id="profile">
+        <section>
+          <h2>Profile</h2>
+          <p>👋 I'm Shihong Chen, working at the intersection of technology and human experience.</p>
+          <p>🎯 I focus on digital and AI transformation, trying to build systems that are both technically sound and genuinely useful to people.</p>
+          <p>🌏 Based between China and the US, I've learned to bridge different perspectives—technical and humanistic, Eastern and Western, strategic and hands-on.</p>
+        </section>
+      </div>
 
-      <section class="navpane" id="philosophy">
-        <h2>Professional Philosophy</h2>
-        <p>💡 I believe that <strong>great systems are not managed into existence — they are understood into existence</strong>. The true value of technology lies not in its complexity, but in how it helps an organization operate with greater clarity and rhythm.</p>
-        <p>🔄 Digital transformation is not merely about building systems — it is a <strong>change in how an organization thinks and learns</strong>. It's about understanding, collaboration, and growth — making change itself a core capability.</p>
-      </section>
+      <div class="navpane" id="approach">
+        <section>
+          <h2>Approach</h2>
+          <p><strong>Thinking:</strong> I try to think systematically, connecting dots across disciplines. I spend time reflecting on why things work the way they do, not just how to make them work.</p>
+          <p><strong>Building:</strong> I'm a builder at heart. I like to architect systems from the ground up, getting my hands dirty with code and infrastructure. DevOps mindset—if I design it, I want to understand how to deploy and maintain it too.</p>
+          <p><strong>Creating:</strong> I'm drawn to the intersection of engineering and aesthetics. Good systems should be elegant, not just functional. I believe there's an art to technical work.</p>
+          <p><strong>Collaborating:</strong> I try to be a bridge—between technical and business teams, between global strategy and local execution, between different ways of thinking. I value bringing people together around shared goals.</p>
+        </section>
+      </div>
 
-      <section class="navpane" id="focus">
-        <h2>Current Focus</h2>
-        <ul>
-          <li>🤖 Transitioning from traditional development to <strong>AI‑Native Engineering</strong></li>
-          <li>🤝 Enabling <strong>fusion teams</strong> where humans and AI collaborate naturally</li>
-          <li>🧠 Exploring the synergy between <strong>humans, information, and AI</strong> in modern organizations</li>
-          <li>⚡ Building lighter, faster technology stacks to support rapid business evolution</li>
-          <li>🌱 Encouraging adaptability as a core organizational habit</li>
-        </ul>
-      </section>
+      <div class="navpane" id="working">
+        <section>
+          <h2>Working Style</h2>
+          <p>🔧 <strong>Hands-on:</strong> I prefer to understand systems deeply by building and operating them myself.</p>
+          <p>🧩 <strong>Cross-disciplinary:</strong> I draw from computer science, information science, design, and philosophy to solve problems.</p>
+          <p>🎨 <strong>Engineering aesthetics:</strong> I care about code quality, system elegance, and user experience equally.</p>
+          <p>🌐 <strong>Global-local integration:</strong> I work to adapt global best practices to local contexts thoughtfully.</p>
+          <p>🤝 <strong>Principled collaboration:</strong> I try to be rational in analysis but warm in working with people. I believe in doing the right thing, even when it's harder.</p>
+        </section>
+      </div>
 
-      <section class="navpane" id="education">
-        <h2>Education</h2>
-        <ul>
-          <li>🎓 <strong>PKU × NU Kellogg EMBA</strong></li>
-          <li>🎓 <strong>Southeast University</strong></li>
-        </ul>
-      </section>
+      <div class="navpane" id="focus">
+        <section>
+          <h2>Current Focus</h2>
+          <p>🤖 <strong>AI-Native Engineering:</strong> Exploring what it means to build software in an AI-first world. Not just adding AI features, but rethinking how we architect, develop, and operate systems when AI is a fundamental building block.</p>
+          <p>🧠 <strong>Humans · Information · AI:</strong> Studying the evolving relationship between people, information systems, and artificial intelligence. How do we design systems that augment human capability rather than just automate tasks?</p>
+          <p>⚡ <strong>Digital Transformation:</strong> Helping organizations navigate the shift to digital-first operations, with a focus on sustainable, people-centered change.</p>
+        </section>
+      </div>
 
-      <section class="navpane" id="projects">
-        <h2>Personal Projects & Interests</h2>
-        <ul>
-          <li>🥷 <a href="https://shihong.me" target="_blank" rel="noopener"><strong>shihong.me</strong></a> — Personal site and digital notebook (in progress)</li>
-          <li>🧰 <strong>NerdBox</strong> — A small collection of ongoing experimental tools</li>
-          <li>🎨 Long‑term interests in <strong>AI agent collaboration, knowledge architecture, visual design, and narrative thinking</strong></li>
-          <li>✍️ Occasionally writes code, and sometimes words</li>
-        </ul>
-      </section>
+      <div class="navpane" id="education">
+        <section>
+          <h2>Education</h2>
+          <ul>
+            <li>🎓 <strong>MS in Information Science</strong> — University of North Carolina at Chapel Hill</li>
+            <li>🎓 <strong>BS in Computer Science</strong> — Nanjing University</li>
+          </ul>
+        </section>
+      </div>
 
-      <section class="navpane" id="technical">
-        <h2>Technical Orientation</h2>
-        <ul>
-          <li>☁️ Experienced with cloud‑native environments and automation workflows</li>
-          <li>🎯 Enjoys designing at the boundaries where systems meet people</li>
-          <li>🖥️ Runs personal servers as a playground for experimentation</li>
-          <li>🧘 Believes that <strong>understanding systems also helps us understand life</strong></li>
-        </ul>
-      </section>
-
-      <section class="navpane" id="life">
-        <h2>Life & Personality</h2>
-        <ul>
-          <li>📚 Enjoys reading, traveling, and practicing simplicity</li>
-          <li>🎵 Values rhythm, restraint, and quiet focus</li>
-          <li>💭 Self‑description: <strong>"A humanist with an engineer's mind."</strong></li>
-        </ul>
-      </section>
+      <div class="navpane" id="projects">
+        <section>
+          <h2>Projects & Interests</h2>
+          <p>💻 <strong>Personal site:</strong> This CLI-inspired website—built with zero dependencies, keyboard navigation, and a geek aesthetic.</p>
+          <p>📚 <strong>Reading:</strong> Philosophy of technology, system design, information architecture, and the occasional sci-fi novel.</p>
+          <p>🛠️ <strong>Tinkering:</strong> DevOps tools, infrastructure as code, automation scripts, and exploring new programming paradigms.</p>
+          <p>🌱 <strong>Learning:</strong> Always exploring new technologies and frameworks, but more interested in fundamental principles that last.</p>
+        </section>
+      </div>
     </main>
   </div>
 
   <footer class="foot">
-    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.7</span>
+    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.8</span>
     <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
 
