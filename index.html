@@ -40,11 +40,13 @@
     }
 
     html,body{height:100%;}
+    html{overscroll-behavior-x:none; touch-action:pan-y pinch-zoom;}
     body{margin:0; background:var(--bg); color:var(--fg);
       font: 14px/1.7 var(--mono);
       letter-spacing:.3px;
       color-scheme: light;
       transition: background-color 0.3s ease, color 0.3s ease;
+      overscroll-behavior-x:none;
     }
     [data-theme="dark"] body{ color-scheme: dark; }
     [data-theme="light"] body{ color-scheme: light; }
@@ -250,7 +252,7 @@
   </div>
 
   <footer class="foot">
-    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.10</span>
+    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.11</span>
     <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
 
