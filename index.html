@@ -39,14 +39,13 @@
       --accent:#111827; --link:#2563eb; --code:#0b0b0c; --green:#16794d; --green-dim:#236e57;
     }
 
-    html,body{height:100%;}
     html{overscroll-behavior-x:none; touch-action:pan-y pinch-zoom; overflow-x:hidden;}
     body{margin:0; background:var(--bg); color:var(--fg);
       font: 14px/1.7 var(--mono);
       letter-spacing:.3px;
       color-scheme: light;
       transition: background-color 0.3s ease, color 0.3s ease;
-      overscroll-behavior-x:none; overflow-x:hidden; width:100%;
+      overscroll-behavior-x:none; overflow-x:hidden; width:100%; min-height:100vh;
     }
     [data-theme="dark"] body{ color-scheme: dark; }
     [data-theme="light"] body{ color-scheme: light; }
@@ -252,7 +251,7 @@
   </div>
 
   <footer class="foot">
-    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.12</span>
+    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.13</span>
     <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
 
