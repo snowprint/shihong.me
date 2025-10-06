@@ -2,7 +2,7 @@
 
 Personal website with CLI-inspired design and geek aesthetic.
 
-**Live:** [shihong.me](https://shihong.me)
+**Live:** [shihong.me](https://shihong.me) | **Version:** v1.13
 
 ## ✨ Features
 
@@ -44,9 +44,13 @@ No build process needed - just open `index.html` in your browser!
 
 ```
 shihong.me/
-├── index.html      # Main page (includes CSS & JS)
-├── README.md       # This file
-└── .gitignore      # Git ignore rules
+├── .github/
+│   └── workflows/
+│       └── deploy.yml    # Auto-deployment to server
+├── index.html            # Main page (includes CSS & JS)
+├── README.md             # This file
+├── LICENSE               # MIT License
+└── .gitignore            # Git ignore rules
 ```
 
 ## 🛠️ Tech Stack
@@ -55,6 +59,16 @@ shihong.me/
 - **CSS3** - Custom properties, Grid, Flexbox
 - **Vanilla JavaScript** - No frameworks
 
+## 🚢 Deployment
+
+The site automatically deploys to [shihong.me](https://shihong.me) via GitHub Actions when changes are pushed to the `main` branch.
+
+**Deployment workflow:**
+1. Push changes to `main` branch
+2. GitHub Actions triggers deployment
+3. Files are synced to server via rsync over SSH
+4. Site is live at https://shihong.me
+
 ## 📄 License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) file for details
