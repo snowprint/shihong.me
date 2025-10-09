@@ -69,6 +69,32 @@ The site automatically deploys to [shihong.me](https://shihong.me) via GitHub Ac
 3. Files are synced to server via rsync over SSH
 4. Site is live at https://shihong.me
 
+## 🏷️ Version Management
+
+**Versioning Strategy:**
+- Website footer displays version number (e.g., v1.13, v1.14, v1.15...)
+- Version number increments with each update
+- Git tags are created **only for major releases** (e.g., v1.13, v2.0)
+- Daily updates increment version number but don't create tags
+
+**When to create a Git tag:**
+- Major feature additions
+- Significant design changes
+- Architecture refactoring
+- Other milestone updates
+
+**Update workflow:**
+```bash
+# Regular update (no tag)
+git commit -m "feat: description"
+git push
+
+# Major release (with tag)
+git commit -m "feat: major update"
+git tag -a v2.0 -m "Release v2.0: description"
+git push && git push origin v2.0
+```
+
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) file for details
