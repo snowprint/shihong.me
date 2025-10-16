@@ -67,11 +67,11 @@
     /* Sidebar */
     .side{ position:sticky; top:16px; align-self:start; border:1px solid var(--border); border-radius:14px; padding:18px; background:var(--card); display:flex; flex-direction:column; gap:16px; }
     @media (max-width: 980px){ .side{ position:static; } }
-    .term{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:transparent; }
-    .term-head{ display:flex; gap:6px; align-items:center; padding:8px 10px; border-bottom:1px solid var(--border); }
+    .term{ border:1px solid var(--border); border-radius:12px; overflow:hidden; background:transparent; padding:10px; }
+    .term-head{ display:flex; gap:6px; align-items:center; padding-bottom:10px; margin-bottom:10px; border-bottom:1px solid var(--border); }
     .dot{ width:10px; height:10px; border-radius:50%; }
     .d-red{ background:#ff5f56; } .d-amber{ background:#ffbd2e; } .d-green{ background:#27c93f; }
-    .prompt{ font: 13px/1.6 var(--mono); padding:10px 12px; white-space:nowrap; overflow:auto; }
+    .prompt{ font: 13px/1.6 var(--mono); white-space:nowrap; overflow:auto; }
     .prompt b{ color:var(--link); }
 
     .name{ font-size: 20px; line-height: 1.2; margin:0; letter-spacing:.3px; font-weight: 700; }
@@ -87,7 +87,8 @@
 
     /* Main */
     .main{ display:flex; flex-direction:column; gap:22px; }
-    .navpane{ border:1px solid var(--border); border-radius:14px; padding:18px 18px; background:transparent; scroll-margin-top: 14px; }
+    .navpane{ border:1px solid var(--border); border-radius:14px; padding:0; background:transparent; scroll-margin-top: 14px; }
+    .navpane section{ padding:18px; }
     h1{ font-size: 26px; line-height: 1.25; margin:0 0 6px; font-weight: 700; }
     h2{ font: 13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; }
     p{ margin:8px 0; }
@@ -99,9 +100,9 @@
     [data-theme="dark"] .main a{ color: var(--green); }
     [data-theme="dark"] .main strong{ color: var(--green-dim); font-weight: 700; }
 
-    .hero-cli{ overflow:hidden; }
-    .hero-head{ display:flex; gap:6px; align-items:center; padding:10px; border-bottom:1px solid var(--border); }
-    .hero-body{ font:14px/1.7 var(--mono); padding:12px; }
+    .hero-cli{ overflow:hidden; padding:18px; }
+    .hero-head{ display:flex; gap:6px; align-items:center; padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--border); }
+    .hero-body{ font:14px/1.7 var(--mono); }
     .cmd{ color:var(--muted); }
     .code{ color:var(--code); line-height:1.7; }
     .cmd-green{ color:var(--green); }
@@ -256,7 +257,7 @@
   </div>
 
   <footer class="foot">
-    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.19 <span class="icp-desktop">&nbsp;·&nbsp; <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;">苏ICP备20014169号</a></span></span>
+    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.21 <span class="icp-desktop">&nbsp;·&nbsp; <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;">苏ICP备20014169号</a></span></span>
     <span class="icp-mobile"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;">苏ICP备20014169号</a></span>
     <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
