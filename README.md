@@ -2,7 +2,7 @@
 
 Personal website with CLI-inspired design and geek aesthetic.
 
-**Live:** [shihong.me](https://shihong.me) | **Version:** v1.13
+**Live:** [shihong.me](https://shihong.me) | **Version:** v1.19
 
 ## ✨ Features
 
@@ -72,10 +72,17 @@ The site automatically deploys to [shihong.me](https://shihong.me) via GitHub Ac
 ## 🏷️ Version Management
 
 **Versioning Strategy:**
-- Website footer displays version number (e.g., v1.13, v1.14, v1.15...)
+- Website footer displays version number (e.g., v1.19, v1.20, v1.21...)
 - Version number increments with each update
 - Git tags are created **only for major releases** (e.g., v1.13, v2.0)
 - Daily updates increment version number but don't create tags
+
+**Version Sync Rule:**
+- **IMPORTANT:** Every code change MUST increment the version number in BOTH files:
+  - `index.html` footer: `v1.XX` → `v1.XX+1`
+  - `README.md` header: `**Version:** v1.XX` → `**Version:** v1.XX+1`
+- Both version numbers MUST always match
+- This rule applies to ALL changes (content, style, functionality)
 
 **When to create a Git tag:**
 - Major feature additions
@@ -86,10 +93,15 @@ The site automatically deploys to [shihong.me](https://shihong.me) via GitHub Ac
 **Update workflow:**
 ```bash
 # Regular update (no tag)
+# 1. Update version in index.html footer (v1.XX → v1.XX+1)
+# 2. Update version in README.md header (v1.XX → v1.XX+1)
+# 3. Commit and push
 git commit -m "feat: description"
 git push
 
 # Major release (with tag)
+# 1. Update version in both files
+# 2. Create tag and push
 git commit -m "feat: major update"
 git tag -a v2.0 -m "Release v2.0: description"
 git push && git push origin v2.0
