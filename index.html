@@ -101,9 +101,9 @@
 
     .hero-cli{ overflow:hidden; }
     .hero-head{ display:flex; gap:6px; align-items:center; padding:10px; border-bottom:1px solid var(--border); }
-    .hero-body{ font:13.5px var(--mono); padding:12px; }
+    .hero-body{ font:14px/1.7 var(--mono); padding:12px; }
     .cmd{ color:var(--muted); }
-    .code{ color:var(--code); }
+    .code{ color:var(--code); line-height:1.7; }
     .cmd-green{ color:var(--green); }
 
     /* Active pane highlight */
@@ -185,8 +185,8 @@
       <div class="hero-cli navpane" id="hero" role="region" aria-label="CLI banner">
         <div class="hero-head"><span class="dot d-red"></span><span class="dot d-amber"></span><span class="dot d-green"></span></div>
         <div class="hero-body">
-          <div><span class="cmd">$</span> <span class="cmd-green">whoami</span></div>
-          <div class="code">A humanist with an engineer's mind.</div>
+          <div><span class="cmd">$</span> <span class="cmd-green">echo</span> <span class="cmd-green">$WHOAMI</span></div>
+          <div class="code">I'm a humanist with an engineer's mind, still pretending to understand AI before it understands me. I design how people and machines talk to each other — and occasionally, they listen. I try to make organizations a little less irrational by turning chaos into systems and opinions into operating models. Over time I've learned: good systems outlive good slogans — and the best code is culture, not syntax.</div>
         </div>
       </div>
 
@@ -251,7 +251,7 @@
   </div>
 
   <footer class="foot">
-    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.13</span>
+    <span>🥷 <span id="y"></span> Shihong Chen &nbsp;·&nbsp; v1.16</span>
     <span>Theme: <code class="code" id="themeState">dark</code> &nbsp;|&nbsp; Nav: <code class="code">j/k</code></span>
   </footer>
 
