@@ -2,7 +2,7 @@
 
 Personal website with CLI-inspired design and geek aesthetic.
 
-**Live:** [shihong.me](https://shihong.me) | **Version:** v1.21
+**Live:** [shihong.me](https://shihong.me) | **Version:** v1.22
 
 ## ✨ Features
 
