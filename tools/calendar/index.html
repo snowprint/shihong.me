@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese Calendar | 中国日历 - shihong.me</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #0a0a0a;
+      --fg: #e0e0e0;
+      --muted: #888;
+      --border: #333;
+      --accent: #00ff00;
+      --red: #ff5555;
+      --amber: #ffaa00;
+      --green: #00ff00;
+      --hover: #1a1a1a;
+      --selected: #2a2a2a;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    :root[data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --muted: #666;
+      --border: #ddd;
+      --accent: #007700;
+      --red: #cc0000;
+      --amber: #cc8800;
+      --green: #007700;
+      --hover: #f5f5f5;
+      --selected: #e8e8e8;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--mono); }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    /* CLI Window */
+    .window {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .window-head {
+      background: var(--hover);
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .d-red { background: var(--red); }
+    .d-amber { background: var(--amber); }
+    .d-green { background: var(--green); }
+    .window-title {
+      margin-left: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .window-body { padding: 20px; }
+    
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .cmd-line {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .cmd-green { color: var(--accent); }
+    
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--hover);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: var(--selected); }
+    .btn.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    
+    /* View Tabs */
+    .view-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .tab {
+      padding: 8px 16px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 4px 4px 0 0;
+      transition: all 0.2s;
+    }
+    .tab:hover { background: var(--hover); }
+    .tab.active {
+      border-color: var(--border);
+      border-bottom-color: var(--bg);
+      background: var(--bg);
+    }
+    
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; }
+    
+    /* Year View */
+    .year-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .month-mini {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .month-mini:hover { background: var(--hover); }
+    .month-mini-title {
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .mini-cal {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      font-size: 11px;
+    }
+    .mini-day {
+      text-align: center;
+      padding: 2px;
+      color: var(--muted);
+    }
+    
+    /* Month View */
+    .month-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .month-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .nav-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .calendar {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cal-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: var(--hover);
+      border-bottom: 1px solid var(--border);
+    }
+    .cal-weekday {
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .cal-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .cal-day {
+      border: 1px solid var(--border);
+      padding: 10px;
+      min-height: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cal-day:hover { background: var(--hover); }
+    .cal-day.today { background: var(--selected); }
+    .cal-day.selected {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .cal-day.other-month { opacity: 0.3; }
+    .day-num {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .day-lunar {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .day-festival {
+      font-size: 10px;
+      color: var(--red);
+      margin-top: 2px;
+    }
+    
+    /* Day View */
+    .day-detail {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px;
+    }
+    .day-detail-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .day-detail-date {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .day-detail-lunar {
+      font-size: 18px;
+      color: var(--muted);
+    }
+    .detail-section {
+      margin-bottom: 25px;
+    }
+    .detail-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+    }
+    .detail-content {
+      padding-left: 13px;
+      line-height: 1.8;
+    }
+    .detail-item {
+      margin-bottom: 8px;
+    }
+    .suitable { color: var(--green); }
+    .unsuitable { color: var(--red); }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cal-day { min-height: 80px; padding: 6px; }
+      .day-num { font-size: 14px; }
+      .day-lunar { font-size: 10px; }
+      .month-title { font-size: 20px; }
+      .year-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="window">
+      <div class="window-head">
+        <span class="dot d-red"></span>
+        <span class="dot d-amber"></span>
+        <span class="dot d-green"></span>
+        <span class="window-title">Chinese Calendar | 中国日历</span>
+      </div>
+      <div class="window-body">
+        <div class="header">
+          <div class="cmd-line">
+            <span class="cmd-green">$</span> cal --year <span id="currentYear">2025</span> --month <span id="currentMonth">01</span>
+          </div>
+          <div class="controls">
+            <button class="btn" id="todayBtn">Today | 今天</button>
+            <button class="btn" id="themeBtn">Theme | 主题</button>
+          </div>
+        </div>
+
+        <div class="view-tabs">
+          <div class="tab" data-view="year">Year View | 年视图</div>
+          <div class="tab active" data-view="month">Month View | 月视图</div>
+          <div class="tab" data-view="day">Day View | 日视图</div>
+        </div>
+
+        <!-- Year View -->
+        <div class="view" id="yearView">
+          <div class="year-grid" id="yearGrid"></div>
+        </div>
+
+        <!-- Month View -->
+        <div class="view active" id="monthView">
+          <div class="month-header">
+            <div class="month-title" id="monthTitle">January 2025 | 2025年1月</div>
+            <div class="nav-btns">
+              <button class="btn" id="prevMonth">← Prev | 上月</button>
+              <button class="btn" id="nextMonth">Next → | 下月</button>
+            </div>
+          </div>
+          <div class="calendar">
+            <div class="cal-header">
+              <div class="cal-weekday">Sun 日</div>
+              <div class="cal-weekday">Mon 一</div>
+              <div class="cal-weekday">Tue 二</div>
+              <div class="cal-weekday">Wed 三</div>
+              <div class="cal-weekday">Thu 四</div>
+              <div class="cal-weekday">Fri 五</div>
+              <div class="cal-weekday">Sat 六</div>
+            </div>
+            <div class="cal-body" id="calBody"></div>
+          </div>
+        </div>
+
+        <!-- Day View -->
+        <div class="view" id="dayView">
+          <div class="day-detail">
+            <div class="day-detail-header">
+              <div class="day-detail-date" id="dayDate">2025-01-01</div>
+              <div class="day-detail-lunar" id="dayLunar">农历腊月初二 | 12th Month, 2nd Day</div>
+            </div>
+            
+            <div class="detail-section">
+              <div class="detail-title">节日 | Festivals</div>
+              <div class="detail-content" id="dayFestivals">
+                <div class="detail-item">元旦 | New Year's Day</div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-title">宜 | Suitable</div>
+              <div class="detail-content suitable" id="daySuitable">
+                <div class="detail-item">祭祀 Worship · 祈福 Pray · 求嗣 Pray for Offspring</div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-title">忌 | Unsuitable</div>
+              <div class="detail-content unsuitable" id="dayUnsuitable">
+                <div class="detail-item">嫁娶 Marriage · 动土 Construction · 开市 Open Business</div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-title">时辰吉凶 | Hourly Fortune</div>
+              <div class="detail-content" id="dayHourly">
+                <div class="detail-item">子时 23-01 Zi: 吉 Auspicious</div>
+                <div class="detail-item">丑时 01-03 Chou: 凶 Inauspicious</div>
+                <div class="detail-item">寅时 03-05 Yin: 吉 Auspicious</div>
+              </div>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-title">冲煞 | Clash</div>
+              <div class="detail-content" id="dayClash">
+                <div class="detail-item">冲鼠(甲子)煞北 | Clash with Rat, North</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>🗓️ Chinese Calendar | 中国日历 · Data: 2020-2032</div>
+      <div style="margin-top: 8px;">
+        <a href="../../index.html">← Back to shihong.me</a> · 
+        Keyboard: <code>j/k</code> Month · <code>y/m/d</code> View · <code>t</code> Theme
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data
+    let lunarData = null;
+    let huangliData = null;
+    const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+    const ZODIAC = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪'];
+    const ZODIAC_EN = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'];
+    const HOURLY_NAMES = [
+      '子时 Zi (23-01)', '丑时 Chou (01-03)', '寅时 Yin (03-05)', '卯时 Mao (05-07)',
+      '辰时 Chen (07-09)', '巳时 Si (09-11)', '午时 Wu (11-13)', '未时 Wei (13-15)',
+      '申时 Shen (15-17)', '酉时 You (17-19)', '戌时 Xu (19-21)', '亥时 Hai (21-23)'
+    ];
+
+    // Parse compact huangli data
+    function parseHuangli(dateStr) {
+      if (!huangliData || !huangliData.d[dateStr]) return null;
+      
+      const [ganIdx, zhiIdx, sIndices, uIndices, hourlyPattern] = huangliData.d[dateStr];
+      const clashIdx = (zhiIdx + 6) % 12;
+      const dir = ['北', '西', '南', '东'][Math.floor(clashIdx / 3)];
+      
+      return {
+        ganZhi: `${TIANGAN[ganIdx]}${DIZHI[zhiIdx]}`,
+        suitable: sIndices.map(i => huangliData.act.s[i]),
+        unsuitable: uIndices.map(i => huangliData.act.u[i]),
+        hourlyPattern: hourlyPattern,
+        clash: `冲${ZODIAC[clashIdx]}煞${dir} | Clash with ${ZODIAC_EN[clashIdx]}, ${['North', 'West', 'South', 'East'][Math.floor(clashIdx / 3)]}`
+      };
+    }
+
+    // Load data
+    async function loadData() {
+      try {
+        const [lunar, huangli] = await Promise.all([
+          fetch('data/lunar.json').then(r => r.json()),
+          fetch('data/huangli.json').then(r => r.json())
+        ]);
+        lunarData = lunar;
+        huangliData = huangli;
+        renderMonthView();
+      } catch (err) {
+        console.error('Failed to load data:', err);
+      }
+    }
+
+    // State
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+    let selectedDate = null;
+    let currentView = 'month';
+
+    // Theme
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    
+    function setTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('cal-theme', mode);
+    }
+    
+    function applyTheme() {
+      const saved = localStorage.getItem('cal-theme') || localStorage.getItem('theme');
+      setTheme(saved === 'light' ? 'light' : 'dark');
+    }
+    
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // View switching
+    const tabs = document.querySelectorAll('.tab');
+    const views = document.querySelectorAll('.view');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const view = tab.dataset.view;
+        switchView(view);
+      });
+    });
+    
+    function switchView(view) {
+      currentView = view;
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.view === view));
+      views.forEach(v => v.classList.toggle('active', v.id === view + 'View'));
+      
+      if (view === 'year') renderYearView();
+      if (view === 'month') renderMonthView();
+      if (view === 'day' && selectedDate) renderDayView(selectedDate);
+    }
+
+    // Month names
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const monthNamesCN = [
+      '一月', '二月', '三月', '四月', '五月', '六月',
+      '七月', '八月', '九月', '十月', '十一月', '十二月'
+    ];
+
+    // Render Month View
+    function renderMonthView() {
+      if (!lunarData) return;
+      
+      const title = `${monthNames[currentMonth]} ${currentYear} | ${currentYear}年${monthNamesCN[currentMonth]}`;
+      document.getElementById('monthTitle').textContent = title;
+      document.getElementById('currentYear').textContent = currentYear;
+      document.getElementById('currentMonth').textContent = String(currentMonth + 1).padStart(2, '0');
+      
+      const calBody = document.getElementById('calBody');
+      calBody.innerHTML = '';
+      
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      const prevMonthDays = new Date(currentYear, currentMonth, 0).getDate();
+      
+      const today = new Date();
+      const isCurrentMonth = today.getFullYear() === currentYear && today.getMonth() === currentMonth;
+      
+      // Previous month days
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const day = prevMonthDays - i;
+        calBody.appendChild(createDayCell(day, true));
+      }
+      
+      // Current month days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const isToday = isCurrentMonth && day === today.getDate();
+        calBody.appendChild(createDayCell(day, false, isToday));
+      }
+      
+      // Next month days
+      const totalCells = calBody.children.length;
+      const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+      for (let day = 1; day <= remainingCells; day++) {
+        calBody.appendChild(createDayCell(day, true));
+      }
+    }
+
+    function createDayCell(day, otherMonth, isToday = false) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-day';
+      if (otherMonth) cell.classList.add('other-month');
+      if (isToday) cell.classList.add('today');
+      
+      // Only show data for current month cells
+      if (!otherMonth) {
+        const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        
+        // Get lunar data
+        let lunarText = '';
+        let festivalText = '';
+        if (lunarData && lunarData.years[currentYear]) {
+          const yearData = lunarData.years[currentYear];
+          if (yearData.lunarDates[dateStr]) {
+            const lunar = yearData.lunarDates[dateStr];
+            lunarText = `${lunar.lunar}<br>${lunar.lunarEn}`;
+          }
+          if (yearData.festivals[dateStr]) {
+            festivalText = `<div class="day-festival">${yearData.festivals[dateStr]}</div>`;
+          } else if (yearData.solarTerms[dateStr]) {
+            festivalText = `<div class="day-festival">${yearData.solarTerms[dateStr]}</div>`;
+          }
+        }
+        
+        cell.innerHTML = `
+          <div class="day-num">${day}</div>
+          <div class="day-lunar">${lunarText || ''}</div>
+          ${festivalText}
+        `;
+        
+        cell.addEventListener('click', () => {
+          selectedDate = new Date(currentYear, currentMonth, day);
+          renderDayView(selectedDate);
+          switchView('day');
+        });
+      } else {
+        // Other month cells - just show day number
+        cell.innerHTML = `<div class="day-num">${day}</div>`;
+      }
+      
+      return cell;
+    }
+
+    // Render Year View
+    function renderYearView() {
+      const yearGrid = document.getElementById('yearGrid');
+      yearGrid.innerHTML = '';
+      
+      for (let m = 0; m < 12; m++) {
+        const monthDiv = document.createElement('div');
+        monthDiv.className = 'month-mini';
+        
+        const title = document.createElement('div');
+        title.className = 'month-mini-title';
+        title.textContent = monthNames[m];
+        monthDiv.appendChild(title);
+        
+        const miniCal = document.createElement('div');
+        miniCal.className = 'mini-cal';
+        
+        const firstDay = new Date(currentYear, m, 1).getDay();
+        const daysInMonth = new Date(currentYear, m + 1, 0).getDate();
+        
+        for (let i = 0; i < firstDay; i++) {
+          miniCal.appendChild(createMiniDay(''));
+        }
+        
+        for (let d = 1; d <= daysInMonth; d++) {
+          miniCal.appendChild(createMiniDay(d));
+        }
+        
+        monthDiv.appendChild(miniCal);
+        monthDiv.addEventListener('click', () => {
+          currentMonth = m;
+          switchView('month');
+        });
+        
+        yearGrid.appendChild(monthDiv);
+      }
+    }
+
+    function createMiniDay(day) {
+      const cell = document.createElement('div');
+      cell.className = 'mini-day';
+      cell.textContent = day;
+      return cell;
+    }
+
+    // Render Day View
+    function renderDayView(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      
+      document.getElementById('dayDate').textContent = dateStr;
+      
+      if (!lunarData || !huangliData) return;
+      
+      // Lunar info
+      const yearData = lunarData.years[year];
+      if (yearData && yearData.lunarDates[dateStr]) {
+        const lunar = yearData.lunarDates[dateStr];
+        document.getElementById('dayLunar').textContent = `${lunar.lunar} | ${lunar.lunarEn}`;
+      }
+      
+      // Festivals
+      const festivalsEl = document.getElementById('dayFestivals');
+      let festivals = [];
+      if (yearData) {
+        if (yearData.festivals[dateStr]) festivals.push(yearData.festivals[dateStr]);
+        if (yearData.solarTerms[dateStr]) festivals.push(yearData.solarTerms[dateStr]);
+      }
+      if (festivals.length > 0) {
+        festivalsEl.innerHTML = festivals.map(f => `<div class="detail-item">${f}</div>`).join('');
+      } else {
+        festivalsEl.innerHTML = '<div class="detail-item" style="color: var(--muted);">无 None</div>';
+      }
+      
+      // Huangli info
+      const huangli = parseHuangli(dateStr);
+      if (huangli) {
+        // Suitable
+        document.getElementById('daySuitable').innerHTML = 
+          huangli.suitable.map(s => `<div class="detail-item">${s}</div>`).join('');
+        
+        // Unsuitable
+        document.getElementById('dayUnsuitable').innerHTML = 
+          huangli.unsuitable.map(u => `<div class="detail-item">${u}</div>`).join('');
+        
+        // Hourly
+        const hourlyHtml = HOURLY_NAMES.map((name, idx) => {
+          const isAuspicious = (huangli.hourlyPattern + idx) % 2 === 0;
+          const color = isAuspicious ? 'var(--green)' : 'var(--red)';
+          const fortune = isAuspicious ? '吉 Auspicious' : '凶 Inauspicious';
+          return `<div class="detail-item" style="color: ${color};">${name}: ${fortune}</div>`;
+        }).join('');
+        document.getElementById('dayHourly').innerHTML = hourlyHtml;
+        
+        // Clash
+        document.getElementById('dayClash').innerHTML = 
+          `<div class="detail-item">${huangli.clash}</div>`;
+      }
+    }
+
+    // Navigation
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderMonthView();
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderMonthView();
+    });
+
+    document.getElementById('todayBtn').addEventListener('click', () => {
+      const today = new Date();
+      currentYear = today.getFullYear();
+      currentMonth = today.getMonth();
+      switchView('month');
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      
+      const key = e.key.toLowerCase();
+      
+      if (key === 't') {
+        themeBtn.click();
+      } else if (key === 'y') {
+        switchView('year');
+      } else if (key === 'm') {
+        switchView('month');
+      } else if (key === 'd' && selectedDate) {
+        switchView('day');
+      } else if (key === 'j') {
+        e.preventDefault();
+        document.getElementById('nextMonth').click();
+      } else if (key === 'k') {
+        e.preventDefault();
+        document.getElementById('prevMonth').click();
+      } else if (key === 'escape' && currentView === 'day') {
+        switchView('month');
+      }
+    });
+
+    // Initialize
+    applyTheme();
+    loadData();
+  </script>
+</body>
+</html>
